@@ -222,7 +222,6 @@ class OpenAIServingChat:
             while num_choices > 0:
                 try:
                     response = await asyncio.wait_for(response_queue.get(), timeout=10)
-                    print(f"DEBUG chat_completion_stream_generator response:{response}")
                     current_waiting_time = 0
                 except asyncio.TimeoutError:
                     current_waiting_time += 10
@@ -246,6 +245,7 @@ class OpenAIServingChat:
                 )
 
                 async for res in generator:
+                    print(f"DEBUG chat_completion_stream_generator res:{res}")
                     if res.get("error_code", 200) != 200:
                         raise ValueError("{}".format(res["error_msg"]))
 
@@ -438,7 +438,6 @@ class OpenAIServingChat:
             while True:
                 try:
                     response = await asyncio.wait_for(response_queue.get(), timeout=10)
-                    print(f"DEBUG chat_completion_full_generator response:{response}")
                     current_waiting_time = 0
                 except asyncio.TimeoutError:
                     current_waiting_time += 10
@@ -460,6 +459,7 @@ class OpenAIServingChat:
                     include_stop_str_in_output=include_stop_str_in_output,
                 )
                 async for data in generator:
+                    print(f"DEBUG chat_completion_full_generator data:{data}")
                     if data.get("error_code", 200) != 200:
                         raise ValueError("{}".format(data["error_msg"]))
                     # api_server_logger.debug(f"Client {request_id} received: {data}")
