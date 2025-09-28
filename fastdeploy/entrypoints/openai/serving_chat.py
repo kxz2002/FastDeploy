@@ -222,6 +222,7 @@ class OpenAIServingChat:
             while num_choices > 0:
                 try:
                     response = await asyncio.wait_for(response_queue.get(), timeout=10)
+                    print(f"DEBUG chat_completion_stream_generator response:{response}")
                     current_waiting_time = 0
                 except asyncio.TimeoutError:
                     current_waiting_time += 10
@@ -437,6 +438,7 @@ class OpenAIServingChat:
             while True:
                 try:
                     response = await asyncio.wait_for(response_queue.get(), timeout=10)
+                    print(f"DEBUG chat_completion_full_generator response:{response}")
                     current_waiting_time = 0
                 except asyncio.TimeoutError:
                     current_waiting_time += 10
