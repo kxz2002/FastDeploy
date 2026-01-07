@@ -501,6 +501,7 @@ class Ernie4_5Processor(BaseDataProcessor):
     def update_stop_seq(self, stop_sequences):
         """
         Update stop sequences from request.
+        text
         """
         stop_seqs = []
         if isinstance(stop_sequences, str):
